@@ -6,23 +6,23 @@ enum UsersAction {
 }
 const userData: Array<User> = [
     {
-        id:1,
+        id: 1,
         name: 'kunal',
         age: 22,
         admin: true
     },
     {
-        id:2,
+        id: 2,
         name: 'rounak',
         age: 23,
         admin: false
     },
     {
-        id:3,
+        id: 3,
         name: 'utkarsh',
         age: 22,
         admin: false
-    },   
+    },
 ]
 
 interface User {
@@ -36,7 +36,7 @@ interface UsersList extends Array<User> {
 
 }
 
-const onDispatchUsersList = (usersState: UsersList, action: UsersAction): UsersList => {
+const onDispatchUsersList = (usersState: UsersList, _action: UsersAction): UsersList => {
     console.log("Méthode associé au reducer");
 
     return usersState;
@@ -53,7 +53,7 @@ const onDispatchUsersList = (usersState: UsersList, action: UsersAction): UsersL
  */
 const UsersListPage: FunctionComponent = () => {
 
-    const [usersState, dispatch] = useReducer(onDispatchUsersList, userData);
+    const [usersState, _dispatch] = useReducer(onDispatchUsersList, userData);
 
     return (
         <>
@@ -61,7 +61,7 @@ const UsersListPage: FunctionComponent = () => {
             <ol>
                 {
                     usersState.map((u: User) => {
-                        return <li>{ u.name }</li>
+                        return <li>{u.name}</li>
                     })
                 }
             </ol>

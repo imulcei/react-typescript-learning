@@ -3,6 +3,6 @@
     padding: 20px;
 
     border-radius: 10px;
-
-    /* TODO adapter le css pour un rendu OK */
+    font-family:'Courier New', Courier, monospace;
+    /* TODO: adapter le css pour un rendu OK */
 }

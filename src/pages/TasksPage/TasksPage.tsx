@@ -1,13 +1,13 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import styles from "./TaskPage.module.css";
-
 
 const TasksPage = () => {
 
     /**
-     * TODO Déclaration d'un état permettant de stocker la liste des tâches.
+     * Déclaration d'un état permettant de stocker la liste des tâches.
      */
+    const [tasks, setTasks] = useState<string[]>([]);
 
     /**
      * Référence vers l'input (élément du DOM). Permet de retrouver ce que l'utilisateur a saisi.
@@ -22,13 +22,18 @@ const TasksPage = () => {
     function handleAddClick() {
         console.log("Contenu de l'input :" + inputRef.current?.value);
 
-        // ajouter la valeur de l'input à la liste des tâches    
+        // ajouter la valeur de l'input à la liste des tâches
+        if (inputRef.current?.value) {
+            setTasks([...tasks, inputRef.current.value]);
+            inputRef.current.value = "";
+        }
     }
 
     /**
-     * TODO fonction permettant de supprimer toutes les tâches
+     * Fonction permettant de supprimer toutes les tâches
      */
     function handleClearClick() {
+        setTasks([]);
     }
 
     return (
@@ -37,11 +42,10 @@ const TasksPage = () => {
             <input ref={inputRef} />
             <button onClick={handleAddClick}>Ajouter</button>
             <button onClick={handleClearClick}>Tout supprimer</button>
-            <ul className={ styles.task }>
-                {
-                    // TODO ajouter un "map" sur le tableau de states en état afin de créer le JSX de chaque tâche
-                    // Exemple d'utilisation : https://legacy.reactjs.org/docs/lists-and-keys.html#rendering-multiple-components
-                }
+            <ul className={styles.task}>
+                {tasks.map((t, index) => (
+                    <li key={index}>{t}</li>
+                ))}
             </ul>
         </>
     )

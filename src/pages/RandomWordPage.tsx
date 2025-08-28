@@ -1,50 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-/**
- * Page d'entraînement permettant de comprendre l'utilisation des "useEffect"
- * 
- * Plus d'informations : https://fr.legacy.reactjs.org/docs/hooks-effect.html
- * 
- * Ce type de hook peut être considéré comme un déclencheur appelant une fonction donnée suivant l’état d’un composant.
- * Le cycle de vie d’un composant est composé de trois étapes :
- * - Mount : le montage. Il intervient quand une instance du composant est créée dans le DOM.
- * - Update : la mise à jour. Cette phase est déclenchée par un changement d'état du composant.
- * - Unmount : le démontage. C’est étape a lieu quand un composant est retiré du DOM.
- * 
- * 
- * TODO : 
- * Etudiez le code suivant et ajoutez des message utilisateurs en « alert() » à plusieurs niveaux (et uniquement en modifiant le code des fonctions anonymes passées aux « useEffect ».
- * Ajoutez l’affichage des messages suivants aux bon endroits du code :
- * - « Clic sur le bouton de génération de mot 1 »
- * - « Clic sur le bouton de génération de mot 2 »
- * - « Clic sur un des boutons de génération de mot »
- * 
- * ATTENTION : Veillez à ne pas afficher les alertes au chargement de la page.
- */
 const RandomWordPage = () => {
     console.log("Rendering component...");
     const [firstWord, setFirstWord] = useState<string>("");
     const [secondWord, setSecondWord] = useState<string>("");
 
+    const firstRender = useRef(true);
+
     useEffect(() => {
-        // TODO mettre quelque chose ici
-        // Question, quand ce déclenche la fonction associée à ce "useEffect" ?
+        if (!firstRender.current && firstWord !== "") { alert("Clic sur le bouton de génération de mot 1"); }
     }, [firstWord]);
 
     useEffect(() => {
-        // TODO mettre quelque chose ici
-        // Question, quand ce déclenche la fonction associée à ce "useEffect" ?
+        if (!firstRender.current && secondWord !== "") { alert("Clic sur le bouton de génération de mot 2"); }
     }, [secondWord]);
 
     useEffect(() => {
-        // TODO mettre quelque chose ici
-        // Question, quand ce déclenche la fonction associée à ce "useEffect" ?
-    }, []) // tableau de dépendances à des variables d'état vide ! Qu'est ce ça fait ?
-
-    useEffect(() => {
-        // TODO mettre quelque chose ici
-        // Question, quand ce déclenche la fonction associée à ce "useEffect" ?
-    });
+        if (!firstRender.current) { alert("Clic sur un des boutons de génération de mot"); }
+        if (firstRender.current) { firstRender.current = false; }
+    }, [])
 
     /**
      * Fonction utilisée pour générer un mot aléatoire lors du clic sur le bouton 1
@@ -68,10 +42,10 @@ const RandomWordPage = () => {
     }
 
     return (<>
-                <div> {firstWord} - {secondWord} </div>
-                <button onClick={handleClick1}>Changer premier mot</button>
-                <button onClick={handleClick2}>Changer second mot</button>
-            </>
+        <div> {firstWord} - {secondWord} </div>
+        <button onClick={handleClick1}>Changer premier mot</button>
+        <button onClick={handleClick2}>Changer second mot</button>
+    </>
     );
 }
 
